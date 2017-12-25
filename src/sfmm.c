@@ -1,8 +1,3 @@
-/**
- * All functions you make for the assignment must be implemented in this file.
- * Do not submit your assignment with a main function in this file.
- * If you submit with a main function in this file, you will get a zero.
- */
 #include "sfmm.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -105,42 +100,6 @@ void *sf_malloc(size_t size) {
         return NULL;
     }
 
-
-    // //FIRST CALL TO MALLOC
-    // if(seg_free_list[3].head == NULL){
-    //     sf_free_header *free1;
-    //     free1 = (sf_free_header *)sf_sbrk();
-    //     page_count++;
-    //     int remaining_size = PAGE_SZ - total_block_size;
-
-    //     //ALLOCATED BLOCK
-    //     createHeader(free1, 1, padding_required, total_block_size, NULL, NULL);
-    //     createFooter(free1, 1, padding_required, total_block_size, size);
-
-    //     sf_free_header *next_free1 = (sf_free_header*)((char *)free1 + total_block_size + 8);
-
-    //     //REMAINING FREE BLOCK
-    //     createHeader(next_free1, 0, 0, remaining_size, NULL, NULL);
-    //     createFooter(next_free1, 0, 0, remaining_size, 0);
-
-    //     sf_blockprint(next_free1);
-
-    //     if(next_free1->header.block_size << 4 > LIST_4_MIN){
-    //         seg_free_list[3].head = next_free1;
-    //     }
-    //     if(next_free1->header.block_size << 4 > LIST_3_MIN && next_free1->header.block_size << 4 < LIST_3_MAX){
-    //         seg_free_list[2].head = next_free1;
-    //     }
-    //     if(next_free1->header.block_size << 4 > LIST_2_MIN && next_free1->header.block_size << 4 < LIST_2_MAX){
-    //         seg_free_list[1].head = next_free1;
-    //     }
-    //     if(next_free1->header.block_size << 4 > LIST_1_MIN && next_free1->header.block_size << 4 < LIST_1_MAX){
-    //         seg_free_list[0].head = next_free1;
-    //     }
-    //     sf_snapshot();
-
-    //     return (sf_free_header*)((char*) free1 + 8);
-    // }
 
 	for(int i = 0; i < FREE_LIST_COUNT; i++){
 
@@ -308,32 +267,6 @@ void *sf_malloc(size_t size) {
                     int number_to_sbrk = ceiling(((float)total_block_size) / ((float)PAGE_SZ));
                     int j = 0;
                     sf_free_header *free1;
-                    // free1 = (sf_free_header *)sf_sbrk(); //GET ONE GIANT FREE BLOCK ON THE HEAP FROM sbrk().
-                    // page_count++;
-
-                    // // //CREATE FREE BLOCK FROM THIS
-                    // printf("Free block from sbrk:");
-                    // createHeader(free1, 0, 0, PAGE_SZ, NULL, NULL);
-                    // createFooter(free1, 0, 0, PAGE_SZ, 0);
-
-                    // sf_free_header *free1_original = free1;
-
-                    // //IF THERE EXISTS A FREE BLOCK PREVIOUS TO THIS 4096 BYTE BLOCK OBTAINED, COALESCE THESE BLOCKS.
-                    // if(page_count > 1){
-                    //     sf_footer *prevFooter = (sf_footer *)((char*)free1-8);
-                    //     if(prevFooter->allocated == 0){
-                    //         //COALESCE IF THE PREVIOUS BLOCK IS FREE
-                    //         int previousBlockSize = prevFooter->block_size << 4;
-                    //         sf_header *prevHeader = (sf_header *)((char*)free1 - previousBlockSize);
-                    //         prevHeader->block_size = (previousBlockSize + PAGE_SZ) >> 4;
-                    //         free1 = (sf_free_header *)prevHeader;
-                    //         free1->header = *prevHeader;
-
-                    //         //CREATE THE NEW FOOTER FOR THE NEW sbrk() BLOCK
-                    //         createFooter(free1, 0, 0, prevHeader->block_size, 0);
-                    //     }
-                    // }
-
 
                     //IF WE NEED TO sbrk MORE THAN ONCE BECAUSE REQUESTED SIZE IS LARGER THAN A PAGE AND FREE BLOCK IS STILL SMALLER AFTER COALESCING
                     do{
